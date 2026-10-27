@@ -1,0 +1,17 @@
+# 本地数据（学习记录、上传的讲义、数据库）——绝不上传
+data/
+
+# Python
+__pycache__/
+*.pyc
+
+# 自检报告（每次运行生成）
+自检报告.txt
+
+# 临时调试脚本
+/_*.py
+/_*.txt
+
+# 系统文件
+Thumbs.db
+Desktop.ini

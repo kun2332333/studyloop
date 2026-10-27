@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拾知 StudyLoop · 本地学习助手</title>
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%236c8cff'/><path d='M9 22V10h4l3 6 3-6h4v12h-3v-7l-4 7-4-7v7z' fill='white'/></svg>">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 0-2 2z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 19a2 2 0 0 1 2-2h13" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 3h11a2 2 0 0 1 2 2v13" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.2a2.6 2.6 0 1 1 3.6 2.4c-.8.4-1.1 1-1.1 1.9" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="17" r="1.1"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5l1.4 2.6 2.9-.6.6 2.9 2.6 1.4-1.3 2.7 1.3 2.7-2.6 1.4-.6 2.9-2.9-.6L12 21.5l-1.4-2.6-2.9.6-.6-2.9L4.5 15l1.3-2.7L4.5 9.6l2.6-1.4.6-2.9 2.9.6z" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2c3 4 6 6.5 6 11a6 6 0 1 1-12 0c0-2.2 1-3.6 2.2-5C9.6 6.2 12 4.5 12 2z"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 2l2.2 6.5L21 11l-6.8 2.5L12 20l-2.2-6.5L3 11l6.8-2.5z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">拾知</div>
+      <div>
+        <div class="brand-name">StudyLoop</div>
+        <div class="brand-sub">顺应遗忘曲线的学习助手</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="nav-item active" data-nav="today"><svg class="ic"><use href="#i-home"/></svg>今日</button>
+      <button class="nav-item" data-nav="library"><svg class="ic"><use href="#i-book"/></svg>讲义库</button>
+      <button class="nav-item" data-nav="review"><svg class="ic"><use href="#i-cards"/></svg>复习</button>
+      <button class="nav-item" data-nav="quiz"><svg class="ic"><use href="#i-quiz"/></svg>随堂测</button>
+      <button class="nav-item" data-nav="stats"><svg class="ic"><use href="#i-chart"/></svg>学习数据</button>
+      <button class="nav-item" data-nav="settings"><svg class="ic"><use href="#i-gear"/></svg>设置</button>
+    </nav>
+    <div class="side-foot">
+      <div class="streak-pill" id="sideStreak">
+        <svg class="ic flame"><use href="#i-flame"/></svg><span>0 天</span>
+      </div>
+      <div class="side-tip" id="sideTip">先复习，再学新的</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- ============================ 今日 ============================ -->
+    <section class="view" id="view-today">
+      <header class="page-head">
+        <div>
+          <h1 id="greeting">今天也来学一会儿</h1>
+          <p class="sub" id="todaySub">正在加载…</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn ghost" id="btnMethod">方法论</button>
+          <button class="btn primary" id="checkinBtn">打卡</button>
+        </div>
+      </header>
+
+      <div class="grid-today">
+        <div class="card hero">
+          <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg" id="goalRing" cx="60" cy="60" r="52"/>
+            </svg>
+            <div class="ring-label">
+              <strong id="goalPct">0%</strong>
+              <span>今日目标</span>
+            </div>
+          </div>
+          <div class="hero-body">
+            <div class="hero-row"><span class="k">今日学习</span><span class="v" id="minutesToday">0 分钟</span></div>
+            <div class="hero-row"><span class="k">已复习</span><span class="v" id="reviewedToday">0 张</span></div>
+            <div class="hero-row"><span class="k">记忆保持率</span><span class="v" id="retentionToday">—</span></div>
+            <div class="hero-streak">
+              <svg class="ic flame"><use href="#i-flame"/></svg>
+              <span id="streakText">连续 0 天</span>
+              <span class="dot">·</span>
+              <span class="muted" id="studiedText">今天还没开始</span>
+            </div>
+            <div class="hero-btns">
+              <button class="btn ghost sm" id="makeupBtn" hidden>补签昨天</button>
+              <button class="btn ghost sm" id="sleepBtn" hidden>睡前巩固 15 分钟</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card quest">
+          <h3>今天的任务</h3>
+          <div id="taskList" class="task-list"></div>
+          <button class="btn primary wide" id="startReview">开始复习</button>
+          <p class="hint" id="questHint">到期卡片会按遗忘风险排序，先复习旧的，再学新的。</p>
+        </div>
+
+        <div class="card timer">
+          <h3>专注计时</h3>
+          <div class="timer-display" id="timerDisplay">25:00</div>
+          <div class="timer-modes">
+            <button data-min="25" class="chip active">25 分钟</button>
+            <button data-min="50" class="chip">50 分钟</button>
+            <button data-min="15" class="chip">15 分钟</button>
+          </div>
+          <button class="btn wide" id="timerBtn">开始专注</button>
+          <p class="hint">完成一段专注会自动记入今日打卡时长。</p>
+        </div>
+
+        <div class="card forecast">
+          <h3>未来 7 天到期</h3>
+          <div id="forecastChart" class="bars"></div>
+        </div>
+      </div>
+
+      <div class="grid-three">
+        <div class="card tip-card">
+          <div class="card-head"><h3>今日学习提示</h3><svg class="ic spark"><use href="#i-spark"/></svg></div>
+          <p id="tipText">—</p>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>打卡日历</h3><span class="muted" id="heatMeta"></span></div>
+          <div id="miniHeat" class="mini-heat"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>讲义进度</h3><button class="link" data-goto="library">全部</button></div>
+          <div id="recentDecks" class="mini-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 讲义库 ============================ -->
+    <section class="view hidden" id="view-library">
+      <header class="page-head">
+        <div>
+          <h1>讲义库</h1>
+          <p class="sub">支持 PPTX / PDF / DOCX / TXT，上传后自动切分小节并生成复习卡片</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn ghost" id="newDeckBtn">新建空白讲义</button>
+        </div>
+      </header>
+
+      <div class="dropzone" id="dropzone">
+        <svg class="ic big"><use href="#i-upload"/></svg>
+        <p><strong>把讲义拖到这里</strong>，或点击选择文件</p>
+        <p class="muted">.pptx · .pdf · .docx · .txt · .md（单文件 ≤ 120MB）</p>
+        <input type="file" id="fileInput" multiple accept=".pptx,.pdf,.docx,.txt,.md" hidden>
+      </div>
+
+      <div id="deckGrid" class="deck-grid"></div>
+
+      <div id="deckDetail" class="deck-detail hidden">
+        <div class="detail-head">
+          <button class="btn ghost sm" id="backToLib">← 返回</button>
+          <h2 id="detailTitle">讲义</h2>
+          <div class="head-actions">
+            <button class="btn primary sm" id="aiAnalyzeBtn">AI 逐页讲解</button>
+            <button class="btn ghost sm" id="feynmanBtn">费曼模式</button>
+            <button class="btn danger sm" id="delDeckBtn">删除</button>
+          </div>
+        </div>
+        <div class="detail-meta" id="detailMeta"></div>
+        <div class="ask-box">
+          <input id="askInput" class="ask-input" placeholder="向这份讲义提问，例如：LTP 和 LTD 有什么区别？">
+          <button class="btn ghost sm" id="askBtn">提问</button>
+        </div>
+        <div id="askAnswer" class="ask-answer hidden"></div>
+        <div class="detail-body">
+          <div class="sections" id="sectionList"></div>
+          <div class="cards-panel">
+            <div class="card-head"><h3>卡片</h3><div class="mini-actions">
+              <button class="chip" data-filter="all">全部</button>
+              <button class="chip" data-filter="new">未学</button>
+              <button class="chip" data-filter="ai">AI 生成</button>
+            </div></div>
+            <div id="deckCards" class="card-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 复习 ============================ -->
+    <section class="view hidden" id="view-review">
+      <header class="page-head">
+        <div>
+          <h1>复习</h1>
+          <p class="sub">先自己想，再翻面；越难回忆起的卡，间隔被缩短得越多</p>
+        </div>
+        <div class="head-actions">
+          <select id="reviewDeck" class="select"><option value="">全部讲义</option></select>
+          <button class="btn primary" id="beginReview">开始 / 继续</button>
+        </div>
+      </header>
+      <div class="review-placeholder" id="reviewPlaceholder">
+        <div class="big-emoji">◧</div>
+        <p>点击「开始复习」进入专注界面</p>
+        <p class="muted">快捷键：空格翻面 · 1~4 评分 · Esc 退出</p>
+      </div>
+    </section>
+
+    <!-- ============================ 测验 ============================ -->
+    <section class="view hidden" id="view-quiz">
+      <header class="page-head">
+        <div>
+          <h1>随堂测</h1>
+          <p class="sub">提取练习 = 最强的学习手段。答错不可怕，反馈本身就是学习。</p>
+        </div>
+        <div class="head-actions">
+          <select id="quizDeck" class="select"><option value="">全部讲义</option></select>
+          <button class="btn primary" id="startQuiz">开始 10 题</button>
+        </div>
+      </header>
+      <div id="quizBody" class="quiz-body">
+        <div class="empty-state">
+          <p>选一份讲义，开始一次 10 题的快速自测。</p>
+          <p class="muted">题目由你的卡片自动生成：一半选择题，一半填空。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 数据 ============================ -->
+    <section class="view hidden" id="view-stats">
+      <header class="page-head">
+        <div>
+          <h1>学习数据</h1>
+          <p class="sub">看得见的进步，是坚持下去最强的燃料</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn ghost" id="exportBtn">导出备份</button>
+        </div>
+      </header>
+      <div class="stat-tiles" id="statTiles"></div>
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-head"><h3>打卡热力图</h3><span class="muted">最近 16 周</span></div>
+          <div class="heatmap" id="heatmap"></div>
+          <div class="heat-legend"><span>少</span><i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i><span>多</span></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>记忆保持率预测</h3><span class="muted">不复习的话</span></div>
+          <div id="retentionChart" class="chart"></div>
+          <p class="hint">这条曲线用当前所有卡片的稳定性算出：它告诉你「今天不复习，一周后还记得多少」。</p>
+        </div>
+      </div>
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-head"><h3>元认知校准</h3><span class="muted">你有多了解自己</span></div>
+          <div id="calibChart" class="calib"></div>
+          <p class="hint">如果你「很有把握」却常常答错，说明熟悉感骗了你——这正是最该用主动回忆检验的地方。</p>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>学习时段分布</h3><span class="muted" id="peakHour"></span></div>
+          <div id="hourHist" class="hour-hist"></div>
+          <p class="hint">在自己效率最高的时段学最难的内容，比「几点起床」重要得多。</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>讲义掌握度</h3></div>
+        <table class="table" id="deckTable"></table>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>我的笔记与费曼解释</h3><span class="muted">用自己的话写下来的，才是真的懂了</span></div>
+        <div id="noteList" class="note-list"></div>
+      </div>
+    </section>
+
+    <!-- ============================ 设置 ============================ -->
+    <section class="view hidden" id="view-settings">
+      <header class="page-head">
+        <div><h1>设置</h1><p class="sub">这些参数的默认值都有学习科学依据，改动前可以看看括号里的解释</p></div>
+      </header>
+      <div class="grid-two">
+        <div class="card">
+          <h3>学习节奏</h3>
+          <label class="field">每天新卡上限
+            <input type="number" id="setNewLimit" min="0" max="200">
+            <span class="hint">（一次塞太多会显著降低留存率，建议 15~25）</span>
+          </label>
+          <label class="field">每日目标时长（分钟）
+            <input type="number" id="setGoalMin" min="5" max="600">
+            <span class="hint">（小目标比大目标更能维持习惯）</span>
+          </label>
+          <label class="field">目标记忆保持率
+            <input type="number" id="setRetention" min="0.7" max="0.98" step="0.01">
+            <span class="hint">（0.9 = 每次复习时约 90% 还记得；调高会让复习更频繁）</span>
+          </label>
+          <label class="field">最长复习间隔（天）
+            <input type="number" id="setMaxInterval" min="7" max="3650">
+            <span class="hint">（上限，防止间隔无限拉长）</span>
+          </label>
+          <button class="btn primary" id="saveSettings">保存设置</button>
+        </div>
+        <div class="card">
+          <h3>AI 引擎 <span class="tag">可选</span></h3>
+          <p class="hint">驱动「AI 逐页讲解」「讲义问答」。「直连」只需填 DeepSeek 开放平台 Key；
+            本机装了 DeepSeek Harness（dsh）可零配置用「本机 dsh」，密钥由 dsh 自己管理。（dsh：https://github.com/deepseek-ai/deepseek-harness）</p>
+          <label class="field">引擎
+            <select id="setAiMode">
+              <option value="auto">自动（直连优先，兜底本机 dsh）</option>
+              <option value="api">直连 API（DeepSeek 等 OpenAI 兼容接口）</option>
+              <option value="dsh">本机 dsh（DeepSeek Harness headless）</option>
+              <option value="off">关闭</option>
+            </select>
+            <span class="hint">（「自动」最省心：填了 Key 走直连，没填就找本机 dsh）</span>
+          </label>
+          <label class="field">接口地址（Base URL）
+            <input type="text" id="setAiBase" placeholder="https://api.deepseek.com/v1">
+            <span class="hint">（用官方 DeepSeek Key 保持默认即可）</span>
+          </label>
+          <label class="field">API Key
+            <input type="password" id="setAiKey" placeholder="sk-...">
+          </label>
+          <label class="field">模型
+            <input type="text" id="setAiModel" placeholder="deepseek-chat">
+          </label>
+          <div class="row">
+            <button class="btn ghost" id="testAi">测试当前引擎</button>
+            <span class="muted" id="aiState"></span>
+          </div>
+          <p class="hint" id="dshState"></p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>数据</h3>
+        <p class="hint">所有数据都存在本机 <code>data/study.db</code>，不上传任何服务器。</p>
+        <div class="row">
+          <button class="btn ghost" id="exportBtn2">导出 JSON 备份</button>
+          <button class="btn ghost" id="methodBtn2">学习科学方法论</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============================ 复习专注层 ============================ -->
+<div class="overlay hidden" id="reviewOverlay">
+  <div class="review-top">
+    <div class="progress"><div class="progress-bar" id="rvProgress"></div></div>
+    <div class="review-meta">
+      <span id="rvCounter">0 / 0</span>
+      <span class="dot">·</span>
+      <span id="rvDeck"></span>
+      <span class="grow"></span>
+      <button class="btn ghost sm" id="rvExit">退出 (Esc)</button>
+    </div>
+  </div>
+
+  <div class="rev-stage" id="rvStage">
+    <div class="rev-badge" id="rvBadge">复习</div>
+    <div class="rev-front" id="rvFront"></div>
+    <div class="rev-input-wrap" id="rvInputWrap">
+      <textarea id="rvInput" rows="3" placeholder="先在心里/纸上作答，再把答案写在这里（可选）"></textarea>
+      <div class="conf-row">
+        <span class="muted">觉得自己能答对吗？</span>
+        <button class="chip conf" data-conf="1">没把握</button>
+        <button class="chip conf" data-conf="2">不确定</button>
+        <button class="chip conf" data-conf="3">有把握</button>
+      </div>
+    </div>
+    <button class="reveal-btn" id="rvReveal">显示答案 <kbd>空格</kbd></button>
+    <div class="rev-back hidden" id="rvBack"></div>
+    <div class="rev-note hidden" id="rvNote"></div>
+    <div class="rating hidden" id="rvRating">
+      <button class="rate r1" data-rate="1"><b>忘了</b><span>1</span><i></i></button>
+      <button class="rate r2" data-rate="2"><b>模糊</b><span>2</span><i></i></button>
+      <button class="rate r3" data-rate="3"><b>记得</b><span>3</span><i></i></button>
+      <button class="rate r4" data-rate="4"><b>秒答</b><span>4</span><i></i></button>
+    </div>
+  </div>
+
+  <div class="rev-done hidden" id="rvDone">
+    <h2 id="rvDoneTitle">这一轮完成了</h2>
+    <div class="done-stats" id="rvDoneStats"></div>
+    <div class="row center">
+      <button class="btn primary" id="rvAgain">再来一轮</button>
+      <button class="btn ghost" id="rvToToday">回到今日</button>
+    </div>
+    <p class="hint center" id="rvDoneHint"></p>
+  </div>
+</div>
+
+<!-- ============================ 通用弹窗 ============================ -->
+<div class="modal-backdrop hidden" id="modalBackdrop">
+  <div class="modal" id="modalCard">
+    <div class="modal-head"><h3 id="modalTitle"></h3><button class="icon-btn" id="modalClose"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot" id="modalFoot"></div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<script src="/app.js"></script>
+</body>
+</html>
